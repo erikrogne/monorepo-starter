@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-figma"
+      ],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "your-figma-token-here"
+      }
+    },
+    "linear": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-linear"
+      ],
+      "env": {
+        "LINEAR_API_KEY": "your-linear-api-key-here"
+      }
+    },
+    "gmail": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-gmail"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "your-client-id",
+        "GOOGLE_CLIENT_SECRET": "your-client-secret"
+      }
+    },
+    "google-calendar": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-google-calendar"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "your-client-id",
+        "GOOGLE_CLIENT_SECRET": "your-client-secret"
+      }
+    }
+  }
+}
