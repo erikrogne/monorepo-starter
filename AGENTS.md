@@ -8,9 +8,15 @@ This monorepo is a **starter template** for Product Managers and Product Designe
 
 ## Quick Start
 
-1. **Clone this repo** and customize `knowledge/about-you.md` with your context
-2. **Install your preferred agent**: Claude Code, Cursor, Codex, or Augment Code
-3. **Start working**: The agent will read this file and understand your setup
+1. **Run onboarding**: User says "run onboarding" - follow `ONBOARD.md`
+2. **Or skip**: User can manually edit `knowledge/about-you.md`
+3. **Start working**: Read this file and available skills to assist
+
+### Onboarding Detection
+
+If `knowledge/about-you.md` still contains `[Your name]` or similar placeholders, offer to run onboarding:
+
+> "I notice you haven't set up your context yet. Want me to run onboarding? It takes about 5-10 minutes and will personalize this workspace for you."
 
 ---
 

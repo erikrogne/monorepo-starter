@@ -21,12 +21,18 @@ git clone https://github.com/erikrogne/monorepo-starter.git
 cd monorepo-starter
 ```
 
-### 2. Customize your context
+### 2. Run onboarding (recommended)
 
-Edit `knowledge/about-you.md` with your:
-- Role and team
-- Current projects
-- Preferences and working style
+Open the repo in your AI agent and say:
+
+> **"Run onboarding"**
+
+This 5-10 minute guided setup will:
+- Learn about your role, tools, and communication style
+- Generate your personalized configuration files
+- Recommend skills and integrations for your workflow
+
+*Or manually edit `knowledge/about-you.md` if you prefer.*
 
 ### 3. Install an AI agent
 
