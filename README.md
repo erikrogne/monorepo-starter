@@ -14,8 +14,11 @@ This monorepo provides a structured environment for AI agents to help you with:
 
 ## Quick Start
 
-### 1. Clone this repo
+### 1. Use this Template
 
+Option A (recommended): Use this Template > Create a new repository
+
+Option B: Clone this repo
 ```bash
 git clone https://github.com/erikrogne/monorepo-starter.git
 cd monorepo-starter
