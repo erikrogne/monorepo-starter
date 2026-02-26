@@ -34,9 +34,20 @@ Make sure you have these installed:
 | **Node.js** | `node --version` | [nodejs.org](https://nodejs.org/) or `brew install node` |
 | **Homebrew** (Mac) | `brew --version` | [brew.sh](https://brew.sh/) |
 
-### 3. Run Onboarding
+### 3. Install an AI Agent
 
-Open the repo in your AI agent (Cursor, Claude Code, etc.) and say:
+Choose one of these tools:
+
+| Agent | Best For | Install |
+|-------|----------|---------|
+| [Claude Code](https://claude.ai/code) | General tasks, PRDs, research | Web-based |
+| [Cursor](https://cursor.sh/) | Code editing, prototypes | Desktop app |
+| [Windsurf](https://codeium.com/windsurf) | Code editing, context-aware | Desktop app |
+| [Augment Code](https://augment.dev/) | Enterprise, codebase context | VS Code extension |
+
+### 4. Run Onboarding
+
+Open the repo in your AI agent and say:
 
 > **"Run onboarding"**
 
@@ -48,17 +59,6 @@ This 5-10 minute guided setup will:
 - Set up automatic indexing and self-improvement
 
 *Or manually edit `knowledge/about-you.md` if you prefer.*
-
-### 4. Install an AI Agent
-
-Choose one of these tools:
-
-| Agent | Best For | Install |
-|-------|----------|---------|
-| [Claude Code](https://claude.ai/code) | General tasks, PRDs, research | Web-based |
-| [Cursor](https://cursor.sh/) | Code editing, prototypes | Desktop app |
-| [Windsurf](https://codeium.com/windsurf) | Code editing, context-aware | Desktop app |
-| [Augment Code](https://augment.dev/) | Enterprise, codebase context | VS Code extension |
 
 ### 5. Start Working
 
