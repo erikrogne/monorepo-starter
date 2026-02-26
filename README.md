@@ -14,30 +14,42 @@ This monorepo provides a structured environment for AI agents to help you with:
 
 ## Quick Start
 
-### 1. Use this Template
+### 1. Create Your Repository
 
-Option A (recommended): Use this Template > Create a new repository
+Click **"Use this template"** → **"Create a new repository"** on GitHub.
 
-Option B: Clone this repo
+Then clone your new repo:
 ```bash
-git clone https://github.com/erikrogne/monorepo-starter.git
-cd monorepo-starter
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+cd YOUR_REPO_NAME
 ```
 
-### 2. Run onboarding (recommended)
+### 2. Prerequisites
 
-Open the repo in your AI agent and say:
+Make sure you have these installed:
+
+| Tool | Check | Install (Mac) |
+|------|-------|---------------|
+| **Git** | `git --version` | `xcode-select --install` |
+| **Node.js** | `node --version` | [nodejs.org](https://nodejs.org/) or `brew install node` |
+| **Homebrew** (Mac) | `brew --version` | [brew.sh](https://brew.sh/) |
+
+### 3. Run Onboarding
+
+Open the repo in your AI agent (Cursor, Claude Code, etc.) and say:
 
 > **"Run onboarding"**
 
 This 5-10 minute guided setup will:
+- Install recommended tools (QMD for search, Obsidian for editing)
 - Learn about your role, tools, and communication style
 - Generate your personalized configuration files
-- Recommend skills and integrations for your workflow
+- Search [skills.sh](https://skills.sh) for additional skills matching your workflow
+- Set up automatic indexing and self-improvement
 
 *Or manually edit `knowledge/about-you.md` if you prefer.*
 
-### 3. Install an AI agent
+### 4. Install an AI Agent
 
 Choose one of these tools:
 
@@ -45,10 +57,10 @@ Choose one of these tools:
 |-------|----------|---------|
 | [Claude Code](https://claude.ai/code) | General tasks, PRDs, research | Web-based |
 | [Cursor](https://cursor.sh/) | Code editing, prototypes | Desktop app |
-| [Codex](https://openai.com/codex) | Automation, scripting | API |
-| [Augment Code](https://augment.dev/) | Enterprise, codebase context | Desktop app |
+| [Windsurf](https://codeium.com/windsurf) | Code editing, context-aware | Desktop app |
+| [Augment Code](https://augment.dev/) | Enterprise, codebase context | VS Code extension |
 
-### 4. Start working
+### 5. Start Working
 
 Open the repo in your agent and start asking for help:
 
@@ -57,53 +69,46 @@ Open the repo in your agent and start asking for help:
 - "Summarize the user research in docs/examples/"
 - "Draft a status update for my stakeholders"
 
+## Recommended Tools
+
+| Tool | Purpose | Install |
+|------|---------|---------|
+| **[Obsidian](https://obsidian.md/)** | Edit markdown files | Open this repo as a vault |
+| **QMD** | Fast markdown search | `npm install -g qmd` |
+
+**Obsidian Setup:** File → Open Vault → Select this repo folder. This gives you a nice UI for editing your knowledge base.
+
 ## Structure
 
 ```
 monorepo-starter/
-├── AGENTS.md          # Instructions for AI agents (don't edit unless customizing)
+├── AGENTS.md          # Instructions for AI agents
+├── ONBOARD.md         # Onboarding guide (agents read this)
 ├── README.md          # You are here
 ├── knowledge/         # Your context
 │   └── about-you.md   # Fill this in first
-├── skills/            # Reusable AI workflows
-├── prompts/           # Prompt templates
+├── tools/
+│   ├── skills/        # Reusable AI workflows
+│   ├── prompts/       # Prompt templates
+│   └── mcp/           # External tool integrations
 └── docs/              # Documents and examples
-    ├── templates/
-    └── examples/
 ```
 
-## Customization
+## Self-Improving System
 
-### Adding Your Own Skills
+This monorepo is designed to improve itself. After each session, the AI agent will:
 
-Create a folder in `skills/` with a `SKILL.md` file:
+1. **Update AGENTS.md** with learned preferences and patterns
+2. **Suggest new skills** from [skills.sh](https://skills.sh) based on your workflows
+3. **Refine sub-AGENTS.md files** in each folder for better context
 
-```
-skills/
-└── my-custom-skill/
-    └── SKILL.md
-```
-
-### Using Prompts
-
-Copy templates from `prompts/` and customize for your needs.
-
-## MCP Integrations (Optional)
-
-For advanced users, you can connect external tools via MCP:
-
-- **Figma** - Access design files
-- **Jira/Linear** - Sync issues
-- **Gmail** - Draft emails
-- **Google Calendar** - Check availability
-
-See `docs/mcp-setup.md` for setup instructions.
+You don't need to maintain these files manually—just work with your AI agent and it will keep things current.
 
 ## Resources
 
 - [agents.md Standard](https://agents.md/) - Learn about AGENTS.md
-- [Anthropic Skills](https://github.com/anthropics/skills) - More skills
-- [Skills.sh](https://skills.sh/) - Community skills
+- [Skills.sh](https://skills.sh/) - Community skills marketplace
+- [Anthropic Skills](https://github.com/anthropics/skills) - Official skills
 
 ## License
 

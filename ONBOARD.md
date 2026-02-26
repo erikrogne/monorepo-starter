@@ -2,10 +2,12 @@
 
 This guided onboarding helps you configure your monorepo for AI agents. It takes about **5-10 minutes** and will:
 
+- Check and install prerequisites (Git, Node.js, QMD)
 - Learn about you, your role, and your tools
 - Capture your communication style and voice
 - Identify workflows to automate
-- Recommend relevant skills and MCP integrations
+- Search [skills.sh](https://skills.sh) for additional skills matching your needs
+- Set up automatic indexing and self-improvement
 - Generate your personalized configuration files
 
 ---
@@ -28,7 +30,42 @@ When a user asks to run onboarding, follow this structured process. Ask question
 
 Say:
 
-> "Welcome! I'll help you set up your AI workspace. This takes about 5-10 minutes. I'll ask you some questions, then generate your configuration files and recommend skills for your workflow. Ready?"
+> "Welcome! I'll help you set up your AI workspace. This takes about 5-10 minutes. I'll check your setup, ask some questions, then generate your configuration files and recommend skills for your workflow. Ready?"
+
+---
+
+## Section 0: Prerequisites (~2 min)
+
+Check and help install required tools:
+
+### Check Git
+```bash
+git --version
+```
+If not installed:
+- **Mac:** `xcode-select --install`
+- **Windows:** Download from [git-scm.com](https://git-scm.com/)
+
+### Check Node.js
+```bash
+node --version
+```
+If not installed:
+- **Mac:** `brew install node` or download from [nodejs.org](https://nodejs.org/)
+- **Windows:** Download from [nodejs.org](https://nodejs.org/)
+
+### Install QMD (markdown search)
+```bash
+npm install -g qmd
+```
+
+### Initial Index
+```bash
+qmd update
+```
+
+Tell the user:
+> "I've checked your prerequisites. [Git ✓/✗] [Node ✓/✗] [QMD ✓/✗]. Let me help you install anything missing."
 
 ---
 
@@ -84,7 +121,51 @@ Ask conversationally:
 
 ---
 
-## Section 5: Review & Generate
+## Section 5: Tools Setup (~1 min)
+
+### Recommend Obsidian
+
+> "I recommend using **[Obsidian](https://obsidian.md/)** to edit your markdown files. It's a free, powerful markdown editor. After installing, open this repo as a 'vault' (File → Open Vault → select this folder). This gives you a nice UI for your knowledge base."
+
+### Set up QMD auto-indexing
+
+Explain:
+> "QMD indexes your markdown files for fast search. Run `qmd update` periodically, or I can help you set up automatic indexing."
+
+For Mac, offer to create a cron job or launchd plist for daily indexing.
+
+---
+
+## Section 6: Search for Additional Skills
+
+Use the skills CLI to find relevant skills based on user's workflows:
+
+```bash
+npx skills find [workflow_keywords]
+```
+
+**Search based on their answers:**
+- If they mentioned "presentations" → `npx skills find presentations slides`
+- If they mentioned "research" → `npx skills find user research synthesis`
+- If they mentioned "design" → `npx skills find figma design ui`
+- If they mentioned "writing" → `npx skills find writing documentation`
+- If they mentioned "meetings" → `npx skills find meeting notes transcription`
+
+Present found skills:
+> "Based on your workflows, I found these additional skills on skills.sh:
+> - [skill-name] - [description]
+> - [skill-name] - [description]
+>
+> Want me to install any of these?"
+
+To install:
+```bash
+npx skills add owner/repo@skill-name -g -y
+```
+
+---
+
+## Section 7: Review & Generate
 
 ### Summarize
 
@@ -98,27 +179,27 @@ Ask conversationally:
 >
 > **Does this look right?**
 
-### Recommend Skills & MCPs
+### Recommend Built-in Skills & MCPs
 
 **Tool to MCP:**
-- Figma -> figma MCP
-- Linear -> linear MCP
-- Jira -> jira MCP
-- Gmail -> gmail MCP
-- Google Calendar -> google-calendar MCP
-- Notion -> notion MCP
-- Slack -> slack MCP
+- Figma → figma MCP
+- Linear → linear MCP
+- Jira → jira MCP
+- Gmail → gmail MCP
+- Google Calendar → google-calendar MCP
+- Notion → notion MCP
+- Slack → slack MCP
 
 **Workflow to Skill:**
-- PRDs, specs -> doc-coauthoring
-- UI prototypes -> frontend-design, ui-ux-pro-max
-- Marketing copy -> copywriting
-- Status updates -> internal-comms
-- User research -> user-research
-- Presentations -> pptx
-- PDFs -> pdf
-- Brainstorming -> brainstorming
-- Polish AI text -> humanizer
+- PRDs, specs → doc-coauthoring
+- UI prototypes → frontend-design, ui-ux-pro-max
+- Marketing copy → copywriting
+- Status updates → internal-comms
+- User research → user-research
+- Presentations → pptx
+- PDFs → pdf
+- Brainstorming → brainstorming
+- Polish AI text → humanizer
 
 Present recommendations and offer to configure.
 
@@ -141,7 +222,12 @@ Save Q&A with date and config summary.
 Add recommended MCPs with placeholder tokens.
 
 ### 5. Update root AGENTS.md
-Add "User Preferences" section near top.
+Add "User Preferences" section near top with their context.
+
+### 6. Run initial QMD index
+```bash
+qmd update
+```
 
 ---
 
@@ -149,14 +235,20 @@ Add "User Preferences" section near top.
 
 > **You're all set!**
 >
-> Created:
-> - knowledge/about-you.md - your context
-> - knowledge/voice-guide.md - your writing style
-> - docs/onboarding-transcript.md - this conversation
+> **Created:**
+> - `knowledge/about-you.md` - your context
+> - `knowledge/voice-guide.md` - your writing style
+> - `docs/onboarding-transcript.md` - this conversation
 >
-> Skills are in tools/skills/. Set up MCPs in tools/mcp/.
+> **Installed:**
+> - QMD for fast search (`qmd update` to refresh index)
+> - [Any skills from skills.sh]
 >
-> To re-run, say "run onboarding" again.
+> **Recommended:**
+> - Install [Obsidian](https://obsidian.md/) and open this folder as a vault
+> - Run `qmd update` weekly to keep search current
+>
+> **Self-improvement is enabled.** After each session, I'll update AGENTS.md with learned preferences.
 >
 > What would you like to work on first?
 
@@ -164,9 +256,10 @@ Add "User Preferences" section near top.
 
 ## Re-running
 
-If onboarding exists:
+If onboarding was completed before:
 
 > "You've completed onboarding before. Want to:
 > 1. **Update everything** - full onboarding
-> 2. **Update one section** - role, voice, or workflows
-> 3. **Cancel** - keep current"
+> 2. **Update one section** - prerequisites, role, voice, workflows, or tools
+> 3. **Search for new skills** - check skills.sh for new additions
+> 4. **Cancel** - keep current"
