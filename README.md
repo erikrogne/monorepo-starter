@@ -32,7 +32,7 @@ Make sure you have these installed:
 |------|-------|---------------|
 | **Git** | `git --version` | `xcode-select --install` |
 | **Node.js** | `node --version` | [nodejs.org](https://nodejs.org/) or `brew install node` |
-| **Homebrew** (Mac) | `brew --version` | [brew.sh](https://brew.sh/) |
+| **Homebrew** (Mac) | `brew --version` | [brew.sh](https://brew.sh/) or `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` |
 
 ### 3. Install an AI Agent
 
