@@ -1,6 +1,6 @@
-# Tools — Extensions for AI Agents
+# .agents — Extensions for AI Agents
 
-This folder contains tools that extend AI agent capabilities.
+This folder contains extensions that enhance AI agent capabilities.
 
 ---
 

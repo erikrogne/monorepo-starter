@@ -87,7 +87,7 @@ monorepo-starter/
 ├── README.md          # You are here
 ├── knowledge/         # Your context
 │   └── about-you.md   # Fill this in first
-├── tools/
+├── .agents/
 │   ├── skills/        # Reusable AI workflows
 │   ├── prompts/       # Prompt templates
 │   └── mcp/           # External tool integrations
@@ -106,9 +106,37 @@ You don't need to maintain these files manually—just work with your AI agent a
 
 ## Resources
 
-- [agents.md Standard](https://agents.md/) - Learn about AGENTS.md
-- [Skills.sh](https://skills.sh/) - Community skills marketplace
-- [Anthropic Skills](https://github.com/anthropics/skills) - Official skills
+### Standards & Skills
+
+- [agents.md Standard](https://agents.md/) — Learn about AGENTS.md
+- [Skills.sh](https://skills.sh/) — Community skills marketplace
+- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills) — Official skills from Anthropic
+- [OpenAI Skills](https://github.com/openai/skills) — Official skills from OpenAI
+- [Lessons from Building Claude Code: How We Use Skills](https://x.com/trq212/status/2033949937936085378)
+
+### Podcasts
+
+- [How I AI with Claire Vo](https://www.youtube.com/@howiaipodcast) — Practical AI workflows
+- [The AI Daily Brief](https://aidailybrief.ai/) — Daily AI news and analysis
+- [Lenny's Podcast](https://www.lennysnewsletter.com/podcast) — Product and growth
+- [Behind the Craft](https://www.youtube.com/playlist?list=PLIWHjbvRtljj4RewVNv_znkUe-3E-NKd2) — Deep dives on craft
+- [Inside Ramp: AI Agents Run Everything](https://creatoreconomy.so/p/inside-ramp-the-32b-company-ai-agents-geoff-charles) — How Ramp uses AI agents at scale
+
+### CLI Tooling
+
+- [QMD](https://github.com/tobi/qmd) — Token-efficient markdown search for AI agents
+
+### Software
+
+- [Granola](https://granola.so) — AI meeting notes
+- [Obsidian](https://obsidian.md) — Local-first knowledge management
+- [Obsidian Web Clipper](https://obsidian.md/clipper) — Save articles to your knowledge base
+
+### People to Follow
+
+- [Claire Vo](https://x.com/clairevo) — AI product leader
+- [@trq212](https://x.com/trq212) — AI agent workflows
+- [@0xsero](https://x.com/0xsero) — AI engineering
 
 ## License
 

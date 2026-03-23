@@ -89,8 +89,8 @@ monorepo-starter/
 ├── docs/                  ← Documentation and examples
 │   ├── AGENTS.md
 │   └── examples/
-└── tools/                 ← AI agent extensions
-    ├── AGENTS.md          ← Tools overview
+└── .agents/                 ← Agent extensions (skills, prompts, MCP)
+    ├── AGENTS.md          ← Extensions overview
     ├── skills/            ← Reusable AI workflows
     ├── prompts/           ← Prompt templates
     ├── mcp/               ← MCP server configs
@@ -114,7 +114,7 @@ This starter is designed for:
 ### Before Starting Work
 
 1. **Read `knowledge/about-you.md`** to understand the user context
-2. **Check `tools/skills/AGENTS.md`** to see available workflows
+2. **Check `.agents/skills/AGENTS.md`** to see available workflows
 3. **Use QMD** for searching: `qmd search "topic"` or `qmd query "question"`
 4. **Ask clarifying questions** if the task is ambiguous
 
@@ -128,14 +128,14 @@ This starter is designed for:
 ### When Creating Files
 
 - Place new documents in `docs/` unless otherwise specified
-- Use templates from `tools/prompts/` when available
+- Use templates from `.agents/prompts/` when available
 - Name files descriptively: `YYYY-MM-DD-topic.md`
 
 ---
 
 ## Tools Overview
 
-See `tools/AGENTS.md` for full details.
+See `.agents/AGENTS.md` for full details.
 
 | Tool | Purpose |
 |------|---------|
@@ -208,12 +208,12 @@ Edit `knowledge/about-you.md` with:
 
 1. Search skills.sh: `npx skills find [topic]`
 2. Install: `npx skills add owner/repo@skill-name`
-3. Or create manually in `tools/skills/` with a `SKILL.md` file
+3. Or create manually in `.agents/skills/` with a `SKILL.md` file
 
 ### Adding MCP Integrations
 
-Edit `tools/mcp/mcp-servers.json` to add new servers.
-See `tools/mcp/mcp-setup.md` for setup instructions.
+Edit `.agents/mcp/mcp-servers.json` to add new servers.
+See `.agents/mcp/mcp-setup.md` for setup instructions.
 
 ---
 

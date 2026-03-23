@@ -37,8 +37,8 @@ Reference examples when users need inspiration:
 
 | Need | Look Here |
 |------|-----------|
-| PRD/spec templates | `tools/prompts/` |
-| MCP setup guide | `tools/mcp/mcp-setup.md` |
+| PRD/spec templates | `.agents/prompts/` |
+| MCP setup guide | `.agents/mcp/mcp-setup.md` |
 | Meeting notes | `meetings/` |
 
 ---

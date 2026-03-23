@@ -69,6 +69,42 @@ Tell the user:
 
 ---
 
+
+## Section 0.5: Knowledge Discovery (~2 min)
+
+Before asking detailed questions, check if the user has existing knowledge sources the agent can learn from. This dramatically improves personalization.
+
+Ask:
+
+> "Before I ask you a bunch of questions, do you have any existing sources I can learn from to understand your context better? For example:"
+>
+> - **LinkedIn profile URL** — I can learn your background, role, and experience
+> - **Company wiki or Notion/Confluence** — If you have a Glean API key or similar, I can search your company knowledge base
+> - **Personal website or blog** — Writing samples and interests
+> - **Existing bio or about page** — Quick context on who you are
+> - **Previous AGENTS.md or custom instructions** — From another project
+>
+> "Just paste links or share API keys, and I'll extract what I can. Or say 'skip' to continue with questions."
+
+### If the user provides sources:
+
+1. **LinkedIn URL** — Fetch and extract: name, title, company, experience, skills, education. Pre-fill Section 1 answers.
+2. **Glean API key** — Store in `.agents/mcp/` config. Search for: org chart, team info, recent projects, company terminology. Use findings to pre-fill sections and suggest relevant MCPs.
+3. **Company wiki URL** — Fetch key pages about the user's team, products, glossary. Save relevant context to `knowledge/`.
+4. **Personal site/blog** — Extract writing style, topics of interest, communication tone. Pre-fill Section 2 answers.
+5. **Existing AGENTS.md** — Import preferences, learned patterns, and corrections.
+
+### After processing sources:
+
+> "Here's what I learned from your [source]:
+> - [Key findings]
+>
+> I'll use this to pre-fill some answers. You can correct anything as we go."
+
+**Then continue to Section 1**, but skip or pre-fill questions already answered by the knowledge sources.
+
+---
+
 ## Section 1: Role & Context (~2 min)
 
 Ask conversationally:
@@ -218,7 +254,7 @@ Include style, format prefs, words to use/avoid, writing sample.
 ### 3. Create docs/onboarding-transcript.md
 Save Q&A with date and config summary.
 
-### 4. Update tools/mcp/mcp-servers.json
+### 4. Update .agents/mcp/mcp-servers.json
 Add recommended MCPs with placeholder tokens.
 
 ### 5. Update root AGENTS.md
