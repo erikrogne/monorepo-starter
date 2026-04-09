@@ -58,7 +58,7 @@ This 5-10 minute guided setup will:
 - Search [skills.sh](https://skills.sh) for additional skills matching your workflow
 - Set up automatic indexing and self-improvement
 
-*Or manually edit `knowledge/about-you.md` if you prefer.*
+*Or manually edit `identity/about-you.md` if you prefer.*
 
 ### 5. Start Working
 
@@ -85,13 +85,24 @@ monorepo-starter/
 ├── AGENTS.md          # Instructions for AI agents
 ├── ONBOARD.md         # Onboarding guide (agents read this)
 ├── README.md          # You are here
-├── knowledge/         # Your context
+├── identity/          # Who you are (values, voice, preferences)
 │   └── about-you.md   # Fill this in first
-├── .agents/
-│   ├── skills/        # Reusable AI workflows
-│   ├── prompts/       # Prompt templates
-│   └── mcp/           # External tool integrations
-└── docs/              # Documents and examples
+├── raw/               # Immutable source data (AI reads only)
+│   ├── meetings/      # Meeting transcripts
+│   └── notes/         # Quick captures
+├── wiki/              # AI-compiled knowledge
+│   ├── concepts/      # Ideas and frameworks
+│   ├── decisions/     # Decision records
+│   ├── people/        # Personal CRM
+│   └── summaries/     # Synthesized sources
+├── projects/          # Active time-bound work
+│   ├── work/          # Professional projects
+│   └── personal/      # Side projects
+└── .agents/           # Agent extensions
+    ├── skills/        # Reusable AI workflows
+    ├── prompts/       # Prompt templates
+    ├── crons/         # Scheduled automations
+    └── mcp/           # External tool integrations
 ```
 
 ## Self-Improving System

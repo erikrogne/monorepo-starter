@@ -1,6 +1,6 @@
-# Meetings — Meeting Notes and Transcripts
+# Meetings — Transcripts and Notes
 
-This folder stores meeting notes, transcripts, and summaries.
+> Meeting transcripts, recordings, and raw notes from calls.
 
 ---
 
@@ -9,7 +9,9 @@ This folder stores meeting notes, transcripts, and summaries.
 ```
 meetings/
 ├── AGENTS.md          ← You are here
-└── [meeting-files]    ← Your meeting notes
+├── transcripts/       ← Full meeting transcripts
+├── summaries/         ← AI-generated summaries
+└── [meeting-files]    ← Manual meeting notes
 ```
 
 ---

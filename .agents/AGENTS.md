@@ -12,6 +12,7 @@ This folder contains extensions that enhance AI agent capabilities.
 | `prompts/` | Template prompts for common tasks |
 | `mcp/` | Model Context Protocol server configs |
 | `cli/` | Command-line utilities |
+| `crons/` | Scheduled automations |
 
 ---
 
@@ -48,7 +49,7 @@ Connect AI agents to external tools. Configuration in `mcp/mcp-servers.json`.
 - Gmail — Email integration
 - Google Calendar — Scheduling
 
-See `../docs/mcp-setup.md` for setup instructions.
+See `mcp/mcp-setup.md` for setup instructions.
 
 ---
 
@@ -79,3 +80,21 @@ qmd get "path/to/file.md"
 - Pre-retrieval before answering questions
 
 **Install:** See [qmd documentation](https://github.com/anthropics/qmd)
+
+---
+
+## Crons
+
+Scheduled automations that run on a timer. See `crons/AGENTS.md` for details.
+
+**Registry:** `crons/registry.json` tracks all automations.
+
+**Example crons:**
+- Index updates (keep QMD search fresh)
+- Auto-commit (backup your work)
+- Daily briefings (morning summaries)
+
+**Adding a cron:**
+1. Create script in `crons/your-task/`
+2. Add launchd plist for scheduling
+3. Register in `registry.json`

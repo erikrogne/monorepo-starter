@@ -90,7 +90,7 @@ Ask:
 
 1. **LinkedIn URL** — Fetch and extract: name, title, company, experience, skills, education. Pre-fill Section 1 answers.
 2. **Glean API key** — Store in `.agents/mcp/` config. Search for: org chart, team info, recent projects, company terminology. Use findings to pre-fill sections and suggest relevant MCPs.
-3. **Company wiki URL** — Fetch key pages about the user's team, products, glossary. Save relevant context to `knowledge/`.
+3. **Company wiki URL** — Fetch key pages about the user's team, products, glossary. Save relevant context to `identity/`.
 4. **Personal site/blog** — Extract writing style, topics of interest, communication tone. Pre-fill Section 2 answers.
 5. **Existing AGENTS.md** — Import preferences, learned patterns, and corrections.
 
@@ -245,14 +245,14 @@ Present recommendations and offer to configure.
 
 After confirmation:
 
-### 1. Update knowledge/about-you.md
+### 1. Update identity/about-you.md
 Replace template with actual values.
 
-### 2. Create knowledge/voice-guide.md
+### 2. Create identity/voice-guide.md
 Include style, format prefs, words to use/avoid, writing sample.
 
-### 3. Create docs/onboarding-transcript.md
-Save Q&A with date and config summary.
+### 3. Save onboarding transcript
+Save Q&A with date and config summary to `raw/notes/`.
 
 ### 4. Update .agents/mcp/mcp-servers.json
 Add recommended MCPs with placeholder tokens.
@@ -272,9 +272,9 @@ qmd update
 > **You're all set!**
 >
 > **Created:**
-> - `knowledge/about-you.md` - your context
-> - `knowledge/voice-guide.md` - your writing style
-> - `docs/onboarding-transcript.md` - this conversation
+> - `identity/about-you.md` - your context
+> - `identity/voice-guide.md` - your writing style
+> - Onboarding transcript saved to `raw/notes/`
 >
 > **Installed:**
 > - QMD for fast search (`qmd update` to refresh index)

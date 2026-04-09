@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Registry of scheduled automations",
+  "crons": [
+    {
+      "id": "example-cron",
+      "name": "Example Cron",
+      "description": "Template entry — replace with your own crons",
+      "scriptPath": ".agents/crons/example/script.sh",
+      "launchdLabel": "com.yourname.example",
+      "schedule": "0 * * * *",
+      "scheduleDescription": "Every hour",
+      "enabled": false,
+      "tier": 3,
+      "trustStage": 0
+    }
+  ],
+  "_meta": {
+    "schema": {
+      "id": "Unique identifier (kebab-case)",
+      "name": "Human-readable name",
+      "description": "What the cron does",
+      "scriptPath": "Path to the script relative to repo root",
+      "launchdLabel": "Label for launchd plist file",
+      "schedule": "Cron expression (minute hour day month weekday)",
+      "scheduleDescription": "Human-readable schedule",
+      "enabled": "Whether the cron is active",
+      "tier": "Priority 1-5 (1=critical, 5=optional)",
+      "trustStage": "0=manual, 1=notify, 2=autonomous"
+    }
+  }
+}

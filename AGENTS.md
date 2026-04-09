@@ -9,12 +9,12 @@ This monorepo is a **starter template** for Product Managers and Product Designe
 ## Quick Start
 
 1. **Run onboarding**: User says "run onboarding" → follow `ONBOARD.md`
-2. **Or skip**: User can manually edit `knowledge/about-you.md`
+2. **Or skip**: User can manually edit `identity/about-you.md`
 3. **Start working**: Read this file and available skills to assist
 
 ### Onboarding Detection
 
-If `knowledge/about-you.md` still contains `[Your name]` or similar placeholders, offer to run onboarding:
+If `identity/about-you.md` still contains `[Your name]` or similar placeholders, offer to run onboarding:
 
 > "I notice you haven't set up your context yet. Want me to run onboarding? It takes about 5-10 minutes and will personalize this workspace for you."
 
@@ -81,19 +81,29 @@ monorepo-starter/
 ├── AGENTS.md              ← You are here (agent instructions)
 ├── ONBOARD.md             ← Onboarding guide for new users
 ├── README.md              ← Human-readable setup guide
-├── knowledge/             ← Your context and preferences
+├── identity/              ← Who you are (values, voice, preferences)
 │   ├── AGENTS.md
 │   └── about-you.md       ← Fill this in first
-├── meetings/              ← Meeting notes and transcripts
-│   └── AGENTS.md
-├── docs/                  ← Documentation and examples
+├── raw/                   ← Immutable source data (AI reads only)
 │   ├── AGENTS.md
-│   └── examples/
-└── .agents/                 ← Agent extensions (skills, prompts, MCP)
+│   ├── meetings/          ← Meeting transcripts and notes
+│   └── notes/             ← Quick captures and inbox
+├── wiki/                  ← AI-compiled knowledge (AI writes here)
+│   ├── AGENTS.md
+│   ├── concepts/          ← Ideas and frameworks
+│   ├── decisions/         ← Decision records
+│   ├── people/            ← Personal CRM
+│   └── summaries/         ← Synthesized sources
+├── projects/              ← Active time-bound work
+│   ├── AGENTS.md
+│   ├── work/              ← Professional projects
+│   └── personal/          ← Side projects
+└── .agents/               ← Agent extensions
     ├── AGENTS.md          ← Extensions overview
     ├── skills/            ← Reusable AI workflows
     ├── prompts/           ← Prompt templates
     ├── mcp/               ← MCP server configs
+    ├── crons/             ← Scheduled automations
     └── cli/               ← Command-line utilities (QMD)
 ```
 
@@ -113,10 +123,20 @@ This starter is designed for:
 
 ### Before Starting Work
 
-1. **Read `knowledge/about-you.md`** to understand the user context
+1. **Read `identity/about-you.md`** to understand the user context
 2. **Check `.agents/skills/AGENTS.md`** to see available workflows
 3. **Use QMD** for searching: `qmd search "topic"` or `qmd query "question"`
 4. **Ask clarifying questions** if the task is ambiguous
+
+### Data Flow
+
+```
+raw/ (immutable) → wiki/ (compiled)
+```
+
+- Read from `raw/` for source material
+- Write compiled knowledge to `wiki/`
+- Never modify files in `raw/`
 
 ### Communication Style
 
@@ -127,7 +147,9 @@ This starter is designed for:
 
 ### When Creating Files
 
-- Place new documents in `docs/` unless otherwise specified
+- **Raw data** → `raw/` (immutable, don't modify)
+- **Compiled knowledge** → `wiki/` (concepts, decisions, summaries)
+- **Active work** → `projects/` (time-bound projects)
 - Use templates from `.agents/prompts/` when available
 - Name files descriptively: `YYYY-MM-DD-topic.md`
 
@@ -199,10 +221,10 @@ Benefits:
 
 ### Adding Your Context
 
-Edit `knowledge/about-you.md` with:
-- Your role and team
-- Key projects and goals
-- Preferences and working style
+Edit `identity/about-you.md` with:
+- Your role and background
+- Values and what matters to you
+- Communication style and preferences
 
 ### Adding Skills
 
