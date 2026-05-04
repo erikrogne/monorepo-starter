@@ -1,0 +1,19 @@
+{
+  "$schema": "./registry.schema.json",
+  "crons": {
+    "session-sync": {
+      "description": "Pull AI agent transcripts from local caches into memory/session-logs/.",
+      "script": "session-sync/script.sh",
+      "schedule": "0 * * * *",
+      "macos_plist": "session-sync/com.monorepo-starter.session-sync.plist",
+      "log": "memory/crons/session-sync.log"
+    },
+    "qmd-update": {
+      "description": "Refresh markdown search index (qmd or equivalent).",
+      "script": "qmd-update/script.sh",
+      "schedule": "30 5 * * *",
+      "macos_plist": "qmd-update/com.monorepo-starter.qmd-update.plist",
+      "log": "memory/crons/qmd-update.log"
+    }
+  }
+}

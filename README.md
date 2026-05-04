@@ -1,154 +1,63 @@
-# Monorepo Starter for Product Teams
+# monorepo-starter
 
-A starter template for **Product Managers** and **Product Designers** to work with AI coding agents like Claude Code, Cursor, Codex, and Augment Code.
+A generic, knowledge-worker version of the personal context-engine pattern. One repo that any AI coding agent — Claude Code, Codex, Augment, Cursor — can use as a long-lived second brain.
 
-## What's This?
+> If you've seen the `pm-plugin` (a Pure-Storage-flavored variant) or a fully personal monorepo built on this pattern, this is the *role-agnostic starter*. Pick what you need, drop what you don't.
 
-This monorepo provides a structured environment for AI agents to help you with:
+## What you get
 
-- Writing PRDs and product specs
-- Creating prototypes and UI designs
-- Synthesizing user research
-- Drafting stakeholder communications
-- Generating Figma-to-code conversions
+- **Plugin scaffold** — manifests for Claude Code (`.claude-plugin/`), Augment (`.augment-plugin/`), Codex (`.codex-plugin/`), so this repo registers as a plugin in each agent.
+- **MCP wizard** — day-1 `.mcp.json` ships with no credentials. A `setup` skill reads `.mcp.template.json`, asks you which integrations you want (GitHub, Linear, Notion, Slack, Jira/Confluence, Google Drive, Sentry, Playwright, Postgres, Figma desktop), collects tokens, and writes a personalized config.
+- **9 skills** — `setup`, `onboard`, `session`, `compile`, `write`, `research`, `review`, `brainstorm`, `update`. Each is a self-contained instruction set in `agents/skills/`.
+- **Session memory** — `memory/session-logs/{augment,cursor,codex,claude,curated}/` plus a nightly `session-sync` cron that pulls AI agent transcripts into the repo so context survives across sessions.
+- **Knowledge graph layout** — `identity/`, `raw/`, `wiki/`, `projects/`, each with its own `AGENTS.md` instructions.
 
-## Quick Start
+## Quickstart
 
-### 1. Create Your Repository
-
-Click **"Use this template"** → **"Create a new repository"** on GitHub.
-
-Then clone your new repo:
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone <your-fork> monorepo-starter
+cd monorepo-starter
+./setup.sh
 ```
 
-### 2. Prerequisites
+Then open the directory in your AI agent and say:
 
-Make sure you have these installed:
+> "Run the setup skill."
 
-| Tool | Check | Install (Mac) |
-|------|-------|---------------|
-| **Git** | `git --version` | `xcode-select --install` |
-| **Node.js** | `node --version` | [nodejs.org](https://nodejs.org/) or `brew install node` |
-| **Homebrew** (Mac) | `brew --version` | [brew.sh](https://brew.sh/) or `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` |
+The skill walks you through identity, MCP picks, and optional crons.
 
-### 3. Install an AI Agent
-
-Choose one of these tools:
-
-| Agent | Best For | Install |
-|-------|----------|---------|
-| [Claude Code](https://claude.ai/code) | General tasks, PRDs, research | Web-based |
-| [Cursor](https://cursor.sh/) | Code editing, prototypes | Desktop app |
-| [Windsurf](https://codeium.com/windsurf) | Code editing, context-aware | Desktop app |
-| [Augment Code](https://augment.dev/) | Enterprise, codebase context | VS Code extension |
-
-### 4. Run Onboarding
-
-Open the repo in your AI agent and say:
-
-> **"Run onboarding"**
-
-This 5-10 minute guided setup will:
-- Install recommended tools (QMD for search, Obsidian for editing)
-- Learn about your role, tools, and communication style
-- Generate your personalized configuration files
-- Search [skills.sh](https://skills.sh) for additional skills matching your workflow
-- Set up automatic indexing and self-improvement
-
-*Or manually edit `identity/about-you.md` if you prefer.*
-
-### 5. Start Working
-
-Open the repo in your agent and start asking for help:
-
-- "Write a PRD for a new feature"
-- "Create a React prototype for this wireframe"
-- "Summarize the user research in docs/examples/"
-- "Draft a status update for my stakeholders"
-
-## Recommended Tools
-
-| Tool | Purpose | Install |
-|------|---------|---------|
-| **[Obsidian](https://obsidian.md/)** | Edit markdown files | Open this repo as a vault |
-| **QMD** | Fast markdown search | `npm install -g qmd` |
-
-**Obsidian Setup:** File → Open Vault → Select this repo folder. This gives you a nice UI for editing your knowledge base.
-
-## Structure
+## Layout
 
 ```
 monorepo-starter/
-├── AGENTS.md          # Instructions for AI agents
-├── ONBOARD.md         # Onboarding guide (agents read this)
-├── README.md          # You are here
-├── identity/          # Who you are (values, voice, preferences)
-│   └── about-you.md   # Fill this in first
-├── raw/               # Immutable source data (AI reads only)
-│   ├── meetings/      # Meeting transcripts
-│   └── notes/         # Quick captures
-├── wiki/              # AI-compiled knowledge
-│   ├── concepts/      # Ideas and frameworks
-│   ├── decisions/     # Decision records
-│   ├── people/        # Personal CRM
-│   └── summaries/     # Synthesized sources
-├── projects/          # Active time-bound work
-│   ├── work/          # Professional projects
-│   └── personal/      # Side projects
-└── .agents/           # Agent extensions
-    ├── skills/        # Reusable AI workflows
-    ├── prompts/       # Prompt templates
-    ├── crons/         # Scheduled automations
-    └── mcp/           # External tool integrations
+├── AGENTS.md                top-level protocol every agent reads first
+├── ONBOARD.md               human-readable onboarding guide
+├── README.md                this file
+├── setup.sh                 prerequisite check + bootstrap
+├── .claude-plugin/          Claude Code manifest + marketplace entry
+├── .augment-plugin/         Augment manifest
+├── .codex-plugin/           Codex manifest
+├── .mcp.json                day-1 MCP config (no creds)
+├── .mcp.template.json       MCP integration menu
+├── agents/
+│   ├── cli/                 reference for any custom CLI tools you build
+│   ├── mcp/                 reference for adding more MCP servers
+│   ├── crons/               session-sync + qmd-update + install.sh
+│   └── skills/              the 9 core skills
+├── identity/                about-you, voice-guide
+├── memory/session-logs/     AI agent transcript inbox (per-agent)
+├── projects/                active projects (PARA: Projects)
+├── raw/                     immutable inputs (meetings, notes)
+└── wiki/                    AI-compiled knowledge (concepts, decisions, people, summaries)
 ```
 
-## Self-Improving System
+## Philosophy
 
-This monorepo is designed to improve itself. After each session, the AI agent will:
-
-1. **Update AGENTS.md** with learned preferences and patterns
-2. **Suggest new skills** from [skills.sh](https://skills.sh) based on your workflows
-3. **Refine sub-AGENTS.md files** in each folder for better context
-
-You don't need to maintain these files manually—just work with your AI agent and it will keep things current.
-
-## Resources
-
-### Standards & Skills
-
-- [agents.md Standard](https://agents.md/) — Learn about AGENTS.md
-- [Skills.sh](https://skills.sh/) — Community skills marketplace
-- [Anthropic Skills](https://github.com/anthropics/skills/tree/main/skills) — Official skills from Anthropic
-- [OpenAI Skills](https://github.com/openai/skills) — Official skills from OpenAI
-- [Lessons from Building Claude Code: How We Use Skills](https://x.com/trq212/status/2033949937936085378)
-
-### Podcasts
-
-- [How I AI with Claire Vo](https://www.youtube.com/@howiaipodcast) — Practical AI workflows
-- [The AI Daily Brief](https://aidailybrief.ai/) — Daily AI news and analysis
-- [Lenny's Podcast](https://www.lennysnewsletter.com/podcast) — Product and growth
-- [Behind the Craft](https://www.youtube.com/playlist?list=PLIWHjbvRtljj4RewVNv_znkUe-3E-NKd2) — Deep dives on craft
-- [Inside Ramp: AI Agents Run Everything](https://creatoreconomy.so/p/inside-ramp-the-32b-company-ai-agents-geoff-charles) — How Ramp uses AI agents at scale
-
-### CLI Tooling
-
-- [QMD](https://github.com/tobi/qmd) — Token-efficient markdown search for AI agents
-
-### Software
-
-- [Granola](https://granola.so) — AI meeting notes
-- [Obsidian](https://obsidian.md) — Local-first knowledge management
-- [Obsidian Web Clipper](https://obsidian.md/clipper) — Save articles to your knowledge base
-
-### People to Follow
-
-- [Claire Vo](https://x.com/clairevo) — AI product leader
-- [@trq212](https://x.com/trq212) — AI agent workflows
-- [@0xsero](https://x.com/0xsero) — AI engineering
+- **Filesystem-first.** Markdown files are canonical. Any agent can read the directory, understand state, and continue your work.
+- **Raw is immutable.** AI agents synthesize from `raw/` to `wiki/`. They never modify `raw/`.
+- **Skills over prompts.** Each capability is a discoverable skill with its own SKILL.md.
+- **Bring your own role.** This starter has no opinions on whether you're an engineer, PM, designer, or founder. Customize `identity/` and the `write` skill templates.
 
 ## License
 
-MIT
+MIT. See `LICENSE`.

@@ -1,0 +1,15 @@
+{
+  "name": "monorepo-starter",
+  "version": "0.1.0",
+  "description": "A generic, knowledge-worker version of the personal context-engine pattern. Plugin scaffold for Claude Code, Codex, Augment, and Cursor.",
+  "author": {
+    "name": "monorepo-starter contributors"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/your-org/monorepo-starter",
+  "repository": "https://github.com/your-org/monorepo-starter",
+  "keywords": ["knowledge", "memory", "mcp", "agents", "personal", "starter"],
+  "brand": {
+    "color": "#3B82F6"
+  }
+}

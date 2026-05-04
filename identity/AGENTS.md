@@ -1,51 +1,18 @@
-# Identity — Who You Are
+# identity/AGENTS.md
 
-> Your identity, values, voice, and preferences. The lens through which AI agents understand you.
-
----
+Who the user is, how they work, how they want to be communicated with.
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| `about-you.md` | Your role, background, current focus |
-| `voice-guide.md` | How you communicate, write, and present |
+- `about-you.md` — bio, role, current focus, working style, tools.
+- `voice-guide.md` — how the user writes and wants the agent to write back.
 
----
+Both are populated by the `onboard` skill on first run. Either file may be edited by hand at any time.
 
-## What This Is
+## Read-first rule
 
-Identity is the canonical source for who you are. Agents read this to:
-- Understand your role and responsibilities
-- Match your communication style
-- Respect your preferences and values
-- Personalize responses to your context
+**Every agent session must read both files before doing substantive work.** If either is missing or empty, prompt the user to run `onboard` rather than guessing.
 
----
+## Privacy
 
-## Best Practices
-
-1. **Be authentic** — Write as you would describe yourself
-2. **Include preferences** — Communication style, pet peeves, what you value
-3. **Keep it current** — Update when your role or focus changes
-4. **Add depth over time** — The more context, the better assistance
-
----
-
-## Expanding Your Identity
-
-Add files as needed:
-
-- `values.md` — Your principles and what matters to you
-- `taste/` — Folder for aesthetic preferences (design, writing, etc.)
-- `resume/` — Professional history and accomplishments
-- `scheduling.md` — Meeting preferences, availability patterns
-
----
-
-## For Agents
-
-- Read this folder at the start of every session
-- Adapt communication style to match the user
-- Reference identity context when making suggestions
-- Update files when the user shares new preferences
+Both files are personal. They are listed in `.gitignore` so they won't be committed by default — keep it that way unless the user explicitly opts in.

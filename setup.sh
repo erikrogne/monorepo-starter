@@ -1,103 +1,81 @@
 #!/usr/bin/env bash
+# monorepo-starter bootstrap
+#
+# Verifies prerequisites and prints the next-step guidance. Idempotent —
+# safe to re-run. The heavier MCP wizard lives in the `setup` skill, which
+# any AI agent can invoke once the plugin is installed.
+
 set -euo pipefail
 
-echo "=============================="
-echo "  Monorepo Starter - Setup"
-echo "=============================="
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO_ROOT"
+
+bold()  { printf "\033[1m%s\033[0m\n" "$*"; }
+green() { printf "\033[32m%s\033[0m\n" "$*"; }
+yellow(){ printf "\033[33m%s\033[0m\n" "$*"; }
+red()   { printf "\033[31m%s\033[0m\n" "$*"; }
+
+bold "monorepo-starter setup"
 echo ""
 
-# Colors
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
-NC='\033[0m'
+# 1. Required tools -----------------------------------------------------------
+echo "Checking prerequisites..."
+MISSING=()
+command -v git  >/dev/null 2>&1 || MISSING+=("git")
+command -v node >/dev/null 2>&1 || MISSING+=("node")
+command -v npx  >/dev/null 2>&1 || MISSING+=("npx")
 
-ok()   { echo -e "${GREEN}[OK]${NC} $1"; }
-warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-fail() { echo -e "${RED}[FAIL]${NC} $1"; }
-
-# Check for required tools
-echo "Checking dependencies..."
-echo ""
-
-# Node/npm
-if command -v node &>/dev/null; then
-  ok "Node.js $(node -v)"
-else
-  fail "Node.js not found. Install from https://nodejs.org"
-fi
-
-# Python
-if command -v python3 &>/dev/null; then
-  ok "Python $(python3 --version 2>&1 | awk '{print $2}')"
-else
-  warn "Python3 not found. Some skills may not work."
-fi
-
-# Git
-if command -v git &>/dev/null; then
-  ok "Git $(git --version | awk '{print $3}')"
-else
-  fail "Git not found. Install git first."
+if [[ ${#MISSING[@]} -gt 0 ]]; then
+  red "Missing: ${MISSING[*]}"
+  echo "Install Node.js (which includes npx) from https://nodejs.org and re-run."
   exit 1
 fi
+green "  git, node, npx ✓"
 
-# QMD (optional but recommended)
-echo ""
-echo "Checking optional tools..."
-if command -v qmd &>/dev/null; then
-  ok "QMD installed"
+# 2. uv (used by some MCP servers like mcp-atlassian via uvx) -----------------
+if ! command -v uv >/dev/null 2>&1; then
+  yellow "  uv not found — installing (used by uvx-based MCP servers)..."
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  # shellcheck disable=SC1091
+  if [[ -f "$HOME/.local/bin/env" ]]; then source "$HOME/.local/bin/env"; fi
+fi
+if command -v uv >/dev/null 2>&1; then
+  green "  uv ✓"
 else
-  warn "QMD not found. Install for token-efficient markdown search:"
-  echo "     npm install -g @anthropics/qmd"
-  echo ""
-  read -p "  Install QMD now? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    npm install -g @anthropics/qmd && ok "QMD installed" || warn "QMD install failed"
-  fi
+  yellow "  uv install skipped — add ~/.local/bin to PATH if you want uvx-based MCPs"
 fi
 
-# npx / skills CLI
-if command -v npx &>/dev/null; then
-  ok "npx available (for skills CLI)"
-else
-  warn "npx not found. Install Node.js to use skills CLI."
-fi
-
-# Validate directory structure
+# 3. Local directory state ----------------------------------------------------
 echo ""
-echo "Validating repo structure..."
-MISSING=0
-for f in AGENTS.md ONBOARD.md README.md knowledge/about-you.md .agents/skills/AGENTS.md; do
-  if [ -f "$f" ]; then
-    ok "$f"
-  else
-    fail "$f missing"
-    MISSING=$((MISSING + 1))
+echo "Verifying directories..."
+for d in agents memory raw wiki projects identity; do
+  if [[ ! -d "$d" ]]; then
+    red "  missing $d/"; exit 1
   fi
 done
+green "  agents, memory, raw, wiki, projects, identity ✓"
 
-if [ $MISSING -gt 0 ]; then
-  fail "$MISSING required files missing. Check your repo."
-else
-  ok "All required files present"
-fi
+# 4. Next steps ---------------------------------------------------------------
+echo ""
+bold "Next:"
+cat <<'NEXT'
 
-# Check if about-you.md has been filled in
-echo ""
-if grep -q "\[To be filled" knowledge/about-you.md 2>/dev/null; then
-  warn "knowledge/about-you.md is still a template. Run onboarding to fill it in."
-else
-  ok "knowledge/about-you.md has been customized"
-fi
+  1. Open this directory in your AI agent (Claude Code, Codex, Augment, or Cursor).
+  2. Ask the agent: "run the setup skill"
+       It will walk you through:
+         - identity (about-you, voice-guide)
+         - MCP integrations (pick from a menu — only what you need)
+         - optional crons (session-sync, qmd-update)
+  3. Then ask: "run onboard"  → fills in your initial about-you context.
+  4. Then anytime: "save my session" or "resume" → cross-session memory.
 
-echo ""
-echo "=============================="
-echo "  Setup complete!"
-echo ""
-echo "  Next steps:"
-echo "  1. Open this repo in your AI coding agent"
-echo "  2. Tell it: \"Run the onboarding process\""
-echo "  3. The agent will read ONBOARD.md and guide you"
-echo "=============================="
+  Files of interest:
+    AGENTS.md            top-level protocol every AI agent reads first
+    .mcp.json            day-1 MCP config (no creds)
+    .mcp.template.json   menu of integrations the setup skill installs on demand
+    agents/skills/       skill registry (setup, onboard, session, write, ...)
+    memory/session-logs/ where session-sync deposits AI agent transcripts
+
+NEXT
+
+green "Done."

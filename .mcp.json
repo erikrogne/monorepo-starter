@@ -1,0 +1,15 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/mcp-config.json",
+  "_comment": "Day-1 MCP config. Only credential-free servers ship here so a fresh clone never shows broken (red) MCPs. Run the `setup` skill (or `./setup.sh`) to add token-bearing integrations from .mcp.template.json.",
+  "mcpServers": {
+    "figma-desktop": {
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "_note": "Placeholder example MCP. Replace with your preferred always-on server, or remove."
+    }
+  }
+}

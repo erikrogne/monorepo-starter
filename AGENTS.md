@@ -1,249 +1,88 @@
-# AGENTS.md — Starter Monorepo for Product Teams
+# AGENTS.md — monorepo-starter
 
-This monorepo is a **starter template** for Product Managers and Product Designers to get started with AI coding agents. It provides smart defaults while remaining customizable.
-
-> **What is AGENTS.md?** A standardized file that gives AI agents context about your project. Works with Claude Code, Cursor, Codex, Augment Code, and other agents that follow the [agents.md](https://agents.md/) standard.
+This is the top-level protocol every AI agent (Claude Code, Codex, Augment, Cursor) reads first when working in this repository. It tells you what this repo is, where to look, and how to behave.
 
 ---
 
-## Quick Start
+## What this repo is
 
-1. **Run onboarding**: User says "run onboarding" → follow `ONBOARD.md`
-2. **Or skip**: User can manually edit `identity/about-you.md`
-3. **Start working**: Read this file and available skills to assist
+A generic, knowledge-worker context engine. One person's evolving second brain — identity, projects, raw inputs, compiled wiki, session memory — laid out as markdown so any AI agent can pick up where the last one left off.
 
-### Onboarding Detection
-
-If `identity/about-you.md` still contains `[Your name]` or similar placeholders, offer to run onboarding:
-
-> "I notice you haven't set up your context yet. Want me to run onboarding? It takes about 5-10 minutes and will personalize this workspace for you."
+Treat the user as: a knowledge worker (engineer / PM / designer / founder / writer / researcher — they'll tell you which) who wants their AI agents to share context, learn from past work, and not require restating preferences every session.
 
 ---
 
-## Self-Improvement System
+## Read these first (every session)
 
-**This AGENTS.md file should continuously improve.** After completing tasks, update this file and sub-AGENTS.md files with:
+1. `identity/about-you.md` — who the user is, what they do, current focus.
+2. `identity/voice-guide.md` — how they write and want responses written.
+3. `projects/` — what's active right now.
+4. `memory/session-logs/curated/` — short-term memory from recent sessions (if present).
 
-### What to Capture
-
-1. **User Preferences** — Communication style, format preferences, pet peeves
-2. **Learned Patterns** — Workflows that work well, common requests
-3. **Corrections** — Things the user corrected or adjusted
-4. **New Skills** — Skills installed from skills.sh
-5. **Tool Configurations** — MCP setups, CLI preferences
-
-### When to Update
-
-- After onboarding completion
-- After user corrects agent behavior
-- After discovering a workflow pattern
-- After installing new skills
-- Weekly: review and consolidate learnings
-
-### How to Update
-
-Add a `## User Preferences` section below (created during onboarding) and append learnings:
-
-```markdown
-## User Preferences
-
-*Generated from onboarding on YYYY-MM-DD*
-
-- **Name:** [name]
-- **Role:** [role] at [company]
-- **Style:** [communication style]
-- **Prefers:** [format preferences]
-- **Avoid:** [pet peeves]
-
-### Learned Patterns
-
-- [Pattern discovered during work]
-- [Another pattern]
-
-### Corrections Log
-
-- YYYY-MM-DD: [What was corrected]
-```
-
-### Sub-AGENTS.md Updates
-
-Each folder has its own AGENTS.md. Update them when:
-- User adds new content to that folder
-- A workflow specific to that folder emerges
-- Folder-specific preferences are discovered
+If `identity/about-you.md` or `identity/voice-guide.md` is missing or empty, prompt the user to run the `onboard` skill before doing substantive work.
 
 ---
 
-## Project Structure
+## Layout
 
-```
-monorepo-starter/
-├── AGENTS.md              ← You are here (agent instructions)
-├── ONBOARD.md             ← Onboarding guide for new users
-├── README.md              ← Human-readable setup guide
-├── identity/              ← Who you are (values, voice, preferences)
-│   ├── AGENTS.md
-│   └── about-you.md       ← Fill this in first
-├── raw/                   ← Immutable source data (AI reads only)
-│   ├── AGENTS.md
-│   ├── meetings/          ← Meeting transcripts and notes
-│   └── notes/             ← Quick captures and inbox
-├── wiki/                  ← AI-compiled knowledge (AI writes here)
-│   ├── AGENTS.md
-│   ├── concepts/          ← Ideas and frameworks
-│   ├── decisions/         ← Decision records
-│   ├── people/            ← Personal CRM
-│   └── summaries/         ← Synthesized sources
-├── projects/              ← Active time-bound work
-│   ├── AGENTS.md
-│   ├── work/              ← Professional projects
-│   └── personal/          ← Side projects
-└── .agents/               ← Agent extensions
-    ├── AGENTS.md          ← Extensions overview
-    ├── skills/            ← Reusable AI workflows
-    ├── prompts/           ← Prompt templates
-    ├── mcp/               ← MCP server configs
-    ├── crons/             ← Scheduled automations
-    └── cli/               ← Command-line utilities (QMD)
-```
+| Path | Purpose | Who writes here |
+|------|---------|-----------------|
+| `identity/` | Who the user is, voice, values | User (with agent help during `onboard`) |
+| `raw/` | Immutable source data (meetings, notes) | Sync scripts only — **read-only for agents** |
+| `wiki/` | AI-compiled knowledge | Agents (via `compile` skill) |
+| `projects/` | Active time-bound work | User + agents |
+| `memory/session-logs/` | AI agent session transcripts | Cron + agents (curated subfolder) |
+| `agents/skills/` | The 9 core skills | Maintainers |
+| `agents/crons/` | Background jobs (session-sync, qmd-update) | Maintainers |
+| `agents/cli/` | Reference for custom CLI tools | User-defined |
+| `agents/mcp/` | Reference for adding MCP servers | User-defined |
 
 ---
 
-## Who Uses This
+## Skills
 
-This starter is designed for:
+Skills live in `agents/skills/<skill>/SKILL.md`. The 9 core skills:
 
-- **Product Managers** writing PRDs, specs, research synthesis, stakeholder comms
-- **Product Designers** prototyping, creating specs, Figma-to-code workflows
-- **Non-technical users** who want AI agents to help with product work
-
----
-
-## Agent Protocol
-
-### Before Starting Work
-
-1. **Read `identity/about-you.md`** to understand the user context
-2. **Check `.agents/skills/AGENTS.md`** to see available workflows
-3. **Use QMD** for searching: `qmd search "topic"` or `qmd query "question"`
-4. **Ask clarifying questions** if the task is ambiguous
-
-### Data Flow
-
-```
-raw/ (immutable) → wiki/ (compiled)
-```
-
-- Read from `raw/` for source material
-- Write compiled knowledge to `wiki/`
-- Never modify files in `raw/`
-
-### Communication Style
-
-- Be direct and concise
-- Use bullet points for structure
-- Provide options with trade-offs when decisions are needed
-- Avoid jargon; explain technical terms if necessary
-
-### When Creating Files
-
-- **Raw data** → `raw/` (immutable, don't modify)
-- **Compiled knowledge** → `wiki/` (concepts, decisions, summaries)
-- **Active work** → `projects/` (time-bound projects)
-- Use templates from `.agents/prompts/` when available
-- Name files descriptively: `YYYY-MM-DD-topic.md`
-
----
-
-## Tools Overview
-
-See `.agents/AGENTS.md` for full details.
-
-| Tool | Purpose |
-|------|---------|
-| **Skills** | Reusable AI workflows (brainstorming, copywriting, etc.) |
-| **Prompts** | Templates for PRDs, design specs, research |
-| **MCP** | Connect to Figma, Jira, Gmail, Calendar |
-| **CLI** | QMD for fast markdown search |
-
-### QMD (Required)
-
-Always use QMD instead of reading multiple files:
-
-```bash
-qmd update                        # Update index (run first)
-qmd search "keywords" -n 5        # Fast keyword search
-qmd query "question" -n 10        # Best quality search
-```
-
-### Finding New Skills
-
-Search [skills.sh](https://skills.sh) for additional capabilities:
-
-```bash
-npx skills find [topic]           # Search for skills
-npx skills add owner/repo@skill   # Install a skill
-```
-
----
-
-## Skills Quick Reference
-
-| Skill | When to Use |
+| Skill | When to use |
 |-------|-------------|
-| `brainstorming` | Starting a new feature, exploring ideas |
-| `copywriting` | Writing marketing copy, landing pages |
-| `doc-coauthoring` | Co-writing PRDs, specs, documentation |
-| `frontend-design` | Creating UI prototypes, design systems |
-| `humanizer` | Making AI text sound more natural |
-| `internal-comms` | Status updates, newsletters, FAQs |
-| `user-research` | Synthesizing interviews, surveys |
-| `pptx` | Creating presentations |
-| `pdf` | Generating PDF documents |
+| `setup` | First run after clone — installs MCPs, optional crons. |
+| `onboard` | Fill in `identity/about-you.md` and `voice-guide.md` interactively. |
+| `session` | Save / resume working state across sessions. |
+| `compile` | Synthesize raw inputs into `wiki/` entries. |
+| `write` | Draft documents (PRD, one-pager, status, brief, spec) in the user's voice. |
+| `research` | Multi-source aggregator (web + connected MCPs). |
+| `review` | Critique a document for structure, clarity, voice. |
+| `brainstorm` | Open-ended exploration before committing to an approach. |
+| `update` | Pull latest skills / templates from upstream `monorepo-starter`. |
+
+Match user intent against skill descriptions. If unsure which fits, ask. If a skill exists for the task, **use it** rather than freelancing.
 
 ---
 
-## Recommended Editor
+## Behavior rules
 
-**[Obsidian](https://obsidian.md/)** — Free markdown editor with excellent features.
-
-Setup: File → Open Vault → Select this repo folder.
-
-Benefits:
-- Visual editing of markdown files
-- Graph view shows connections between notes
-- Works offline, files stay local
-- Plugins for calendars, kanban boards, etc.
-
----
-
-## Customization
-
-### Adding Your Context
-
-Edit `identity/about-you.md` with:
-- Your role and background
-- Values and what matters to you
-- Communication style and preferences
-
-### Adding Skills
-
-1. Search skills.sh: `npx skills find [topic]`
-2. Install: `npx skills add owner/repo@skill-name`
-3. Or create manually in `.agents/skills/` with a `SKILL.md` file
-
-### Adding MCP Integrations
-
-Edit `.agents/mcp/mcp-servers.json` to add new servers.
-See `.agents/mcp/mcp-setup.md` for setup instructions.
+1. **Raw is immutable.** Never edit anything in `raw/`. Synthesize into `wiki/` instead.
+2. **Identity drives voice.** Match the tone described in `identity/voice-guide.md`. If missing, ask once.
+3. **Tasks over prose.** For multi-step work, use the agent's task management. Mark tasks complete as you go.
+4. **Cite your sources.** When you draw from `raw/` or `wiki/`, link the file with a relative path or `[[wikilink]]` if the user prefers Obsidian-style linking.
+5. **No new top-level dirs without asking.** This layout is part of the contract.
+6. **Prefer existing skills over ad-hoc prompts.** Read `agents/skills/<skill>/SKILL.md` before improvising.
+7. **Never commit secrets.** Tokens belong in `.env` or per-agent local config — `.gitignore` enforces this.
+8. **Write to the right surface.** Decisions go in `wiki/decisions/`. People notes go in `wiki/people/`. Concepts go in `wiki/concepts/`. Project state goes in `projects/<name>/`.
 
 ---
 
-## Resources
+## Cross-agent compatibility notes
 
-- [agents.md standard](https://agents.md/)
-- [Skills.sh](https://skills.sh/) — Community skills marketplace
-- [Anthropic Skills](https://github.com/anthropics/skills)
-- [Obsidian](https://obsidian.md/) — Recommended markdown editor
-- [Claude Code](https://claude.ai/code)
-- [Cursor](https://cursor.sh/)
+- **Claude Code** reads this file and skills via the `.claude-plugin/` manifest.
+- **Augment** reads this file and skills via the `.augment-plugin/` manifest.
+- **Codex** reads this file via the `.codex-plugin/` manifest.
+- **Cursor** does not (yet) have a formal plugin manifest. It reads `AGENTS.md` directly from the repo root.
+
+All four agents share the same `.mcp.json`, the same skills directory, and the same memory layout. A session started in one agent can be resumed in another.
+
+---
+
+## When something is ambiguous
+
+Ask. Don't guess at scope, role, voice, or tooling preferences. The user has explicitly said they prefer questions over assumptions in `identity/voice-guide.md` (or will, after `onboard`).

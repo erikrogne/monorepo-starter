@@ -1,0 +1,17 @@
+{
+  "name": "monorepo-starter",
+  "version": "0.1.0",
+  "owner": {
+    "name": "monorepo-starter contributors"
+  },
+  "plugins": [
+    {
+      "name": "monorepo-starter",
+      "version": "0.1.0",
+      "source": "./",
+      "description": "A generic, knowledge-worker context engine — skills, MCP wizard, and session memory for any AI coding agent.",
+      "category": "knowledge",
+      "tags": ["knowledge", "memory", "mcp", "personal-system", "starter"]
+    }
+  ]
+}

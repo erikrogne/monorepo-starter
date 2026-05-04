@@ -1,47 +1,60 @@
-# Wiki — AI-Compiled Knowledge
+# wiki/AGENTS.md
 
-> Processed knowledge compiled from raw data. Agents own this directory.
+AI-compiled knowledge. The output of synthesis from `raw/`, projects, and memory.
 
----
-
-## Contents
-
-- [[concepts/AGENTS|Concepts]] — Ideas, frameworks, mental models
-- [[decisions/AGENTS|Decisions]] — Decision records with context
-- [[people/AGENTS|People]] — Personal CRM, relationship context
-- [[summaries/AGENTS|Summaries]] — Synthesized source material
-
----
-
-## The Compilation Pattern
+## Layout
 
 ```
-raw/ (immutable) → wiki/ (compiled)
+wiki/
+├── concepts/    ← topics, frameworks, mental models
+├── decisions/   ← decisions made (across projects), with rationale
+├── people/      ← profiles of people you interact with
+└── summaries/   ← longer-form recaps (weekly, monthly, project post-mortems)
 ```
 
-Agents read from `raw/` and write structured knowledge here:
-- Extract insights from meetings
-- Synthesize themes from notes
-- Build relationship context from interactions
-- Create decision records from discussions
+Add subdirectories as your knowledge grows (`wiki/tools/`, `wiki/companies/`, `wiki/patterns/`).
 
----
+## Who writes here
 
-## Writing to Wiki
+Agents write here, primarily through the `compile` skill. The user may also edit by hand. Both are fine — the wiki is your second brain, not a database.
 
-When adding to wiki:
+## Format
 
-1. **Link to sources** — Reference the raw file that informed this
-2. **Add timestamps** — When was this compiled/updated
-3. **Use wikilinks** — Connect related concepts with `[[links]]`
-4. **Keep atomic** — One idea per file when possible
+- One concept per file. Use kebab-case filenames.
+- Frontmatter is optional but useful: `title`, `tags`, `updated`, `sources`.
+- Cite sources. Link `raw/` files with relative paths or `[[wikilinks]]` if you prefer Obsidian-style.
 
----
+## Decisions
 
-## For Agents
+Decisions deserve a consistent shape:
 
-- This is your primary write destination
-- Compile raw data into structured knowledge
-- Maintain connections between concepts
-- Update existing entries as new info arrives
-- Follow the subfolder conventions
+```markdown
+# Decision — <short title>
+
+**Date:** YYYY-MM-DD
+**Context:** what prompted this
+**Options considered:** brief list
+**Choice:** what you decided
+**Rationale:** why
+**Sources:** [[raw/meetings/...]]
+```
+
+## People
+
+People profiles in `wiki/people/<first-last>.md`:
+
+```markdown
+# Name
+
+**Role:** ...
+**How we know them:** ...
+**Recent context:** last 2-3 interactions
+**Notes:** preferences, sensitivities, things to remember
+```
+
+## Maintenance
+
+The `compile` skill is the primary writer. Run it when:
+- A new meeting transcript lands in `raw/meetings/`.
+- You finish a substantive piece of project work.
+- You explicitly ask "compile what I learned this week."

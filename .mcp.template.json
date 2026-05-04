@@ -1,0 +1,100 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/mcp-config.json",
+  "_comment": "MCP integration menu. The `setup` skill reads this file, prompts you to pick which integrations you want, collects the required tokens, and writes a personalized .mcp.json. Tokens are NEVER committed.",
+  "mcpServers": {
+    "github": {
+      "_description": "GitHub repos, PRs, issues, code search.",
+      "_required_env": ["GITHUB_PERSONAL_ACCESS_TOKEN"],
+      "_token_url": "https://github.com/settings/tokens",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "linear": {
+      "_description": "Linear issues, projects, cycles.",
+      "_required_env": ["LINEAR_API_KEY"],
+      "_token_url": "https://linear.app/settings/api",
+      "command": "npx",
+      "args": ["-y", "linear-mcp"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      }
+    },
+    "notion": {
+      "_description": "Notion pages, databases, and search.",
+      "_required_env": ["NOTION_API_KEY"],
+      "_token_url": "https://www.notion.so/my-integrations",
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\":\"Bearer ${NOTION_API_KEY}\",\"Notion-Version\":\"2022-06-28\"}"
+      }
+    },
+    "slack": {
+      "_description": "Slack channels, DMs, search.",
+      "_required_env": ["SLACK_BOT_TOKEN", "SLACK_APP_TOKEN"],
+      "_token_url": "https://api.slack.com/apps",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_APP_TOKEN": "${SLACK_APP_TOKEN}"
+      }
+    },
+    "atlassian": {
+      "_description": "Jira Cloud + Confluence Cloud (one server, both products).",
+      "_required_env": ["ATLASSIAN_URL", "ATLASSIAN_EMAIL", "ATLASSIAN_API_TOKEN"],
+      "_token_url": "https://id.atlassian.com/manage-profile/security/api-tokens",
+      "command": "uvx",
+      "args": ["mcp-atlassian"],
+      "env": {
+        "JIRA_URL": "${ATLASSIAN_URL}",
+        "JIRA_USERNAME": "${ATLASSIAN_EMAIL}",
+        "JIRA_API_TOKEN": "${ATLASSIAN_API_TOKEN}",
+        "CONFLUENCE_URL": "${ATLASSIAN_URL}/wiki",
+        "CONFLUENCE_USERNAME": "${ATLASSIAN_EMAIL}",
+        "CONFLUENCE_API_TOKEN": "${ATLASSIAN_API_TOKEN}"
+      }
+    },
+    "gdrive": {
+      "_description": "Google Drive files, Docs, Sheets.",
+      "_required_env": ["GDRIVE_CREDENTIALS_PATH"],
+      "_token_url": "https://console.cloud.google.com/apis/credentials",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gdrive"],
+      "env": {
+        "GDRIVE_CREDENTIALS_PATH": "${GDRIVE_CREDENTIALS_PATH}"
+      }
+    },
+    "sentry": {
+      "_description": "Sentry issues, events, performance data.",
+      "_required_env": ["SENTRY_AUTH_TOKEN"],
+      "_token_url": "https://sentry.io/settings/account/api/auth-tokens/",
+      "command": "npx",
+      "args": ["-y", "@sentry/mcp-server"],
+      "env": {
+        "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}"
+      }
+    },
+    "playwright": {
+      "_description": "Headless browser automation. No auth required.",
+      "_required_env": [],
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp"]
+    },
+    "postgres": {
+      "_description": "Read-only PostgreSQL via connection string.",
+      "_required_env": ["POSTGRES_CONNECTION_STRING"],
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "${POSTGRES_CONNECTION_STRING}"]
+    },
+    "figma-desktop": {
+      "_description": "Figma desktop app's local MCP. Requires Figma desktop running. No auth.",
+      "_required_env": [],
+      "type": "http",
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  }
+}

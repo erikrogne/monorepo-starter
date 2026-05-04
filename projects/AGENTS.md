@@ -1,55 +1,32 @@
-# Projects — Active Work
+# projects/AGENTS.md
 
-> Time-bound work with clear outcomes and deadlines.
+Active, time-bound work. PARA's "Projects" tier.
 
----
+## Layout
 
-## Contents
-
-- [[work/AGENTS|Work]] — Professional projects
-- [[personal/AGENTS|Personal]] — Side projects and personal goals
-
----
-
-## Project Naming Convention
+One subdirectory per project, kebab-case:
 
 ```
-YYYY-MM-project-name/
+projects/
+├── q4-launch/
+│   ├── README.md       ← project overview, goals, status
+│   ├── decisions.md    ← key calls made
+│   └── notes.md        ← scratch
+└── hiring-pm-2/
+    └── README.md
 ```
 
-Examples:
-- `2024-03-website-redesign/`
-- `2024-04-q2-planning/`
-- `2024-05-new-feature/`
+Each project should have at least a `README.md` with: goal, success criteria, current status, key links.
 
----
+## When to create one
 
-## Project Structure
+A project belongs here if it has a clear end state and an active timeline. Ongoing responsibilities (e.g. "team management", "personal finance") belong in a separate `areas/` directory if you choose to add one — not here.
 
-Each project folder should contain:
+## When to archive
 
-```
-YYYY-MM-project-name/
-├── README.md           ← Project overview, goals, status
-├── notes/              ← Working notes
-├── assets/             ← Related files
-└── archive/            ← Completed work
-```
+When a project is done or abandoned, move the directory under `projects/_archive/<year>/` (create as needed). Don't delete — archived projects are valuable training data for the `compile` skill.
 
----
+## Cross-references
 
-## Project Lifecycle
-
-1. **Active** — Currently being worked on
-2. **On Hold** — Paused, may resume
-3. **Complete** — Finished, archive or move to `archive/`
-4. **Dropped** — Abandoned, document why
-
----
-
-## For Agents
-
-- Help track project status and progress
-- Surface relevant context when working on a project
-- Suggest connections between projects
-- Archive completed projects appropriately
+- Decisions made inside a project should also be cross-posted as a wiki entry in `wiki/decisions/` so they're searchable across projects.
+- People mentioned should be cross-linked to `wiki/people/<name>.md` if a profile exists.

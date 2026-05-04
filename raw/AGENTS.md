@@ -1,50 +1,33 @@
-# Raw — Immutable Source Data
+# raw/AGENTS.md
 
-> Original, unprocessed inputs. AI agents READ from here, WRITE to wiki/.
+Immutable source data. **AI agents read from here but never write to it.**
 
----
+## Layout
 
-## Contents
+```
+raw/
+├── meetings/   ← meeting transcripts, notes, recordings metadata
+└── notes/      ← captured thoughts, snippets, web clips
+```
 
-- [[meetings/AGENTS|Meetings]] — Transcripts and meeting notes
-- [[notes/AGENTS|Notes]] — Quick captures, inbox items, fleeting thoughts
+Add subdirectories as needed (`raw/email/`, `raw/slack/`, `raw/screenshots/`) — they should be append-only stores fed by sync scripts or manual drops.
 
----
+## The immutability rule
 
-## The Immutability Rule
+Agents must treat `raw/` as read-only. The `compile` skill is the one-way bridge: it reads from `raw/`, synthesizes, and writes to `wiki/`. If you need to "fix" something in `raw/`, fix the synthesis in `wiki/` instead — keep the raw record untouched.
 
-**This folder is READ-ONLY for AI agents.**
+## Filename conventions
 
-- Sync scripts and imports write here
-- Agents read to compile into `wiki/`
-- Never modify, delete, or reorganize raw data
-- Preserve original timestamps and metadata
+- Date-prefix everything: `2026-05-04-meeting-with-x.md`.
+- Use kebab-case.
+- Include the source in the filename when ambiguous: `2026-05-04-granola-customer-call.md`.
 
----
+## What goes here vs. wiki
 
-## Why Immutability?
+| In `raw/` | In `wiki/` |
+|-----------|-----------|
+| The transcript of a meeting | The decisions / action items extracted from it |
+| A web clip you saved | A concept page that cites it |
+| A voice memo transcription | A topic summary that pulls from many memos |
 
-1. **Auditability** — Always trace back to the source
-2. **Reprocessing** — Re-run compilation with improved agents
-3. **Trust** — Know your original data is preserved
-4. **Debugging** — Compare raw input to compiled output
-
----
-
-## Adding Raw Data
-
-Add new source types as subfolders:
-
-- `reading/` — Articles, highlights, bookmarks
-- `chats/` — AI conversation history
-- `journals/` — Daily reflections
-- `health/` — Fitness, sleep, health data
-
----
-
-## For Agents
-
-- Read this folder to gather context
-- Compile insights into `wiki/`
-- Never modify files here
-- Respect the raw → wiki pipeline
+If you find yourself wanting to edit `raw/`, you actually want to write a new entry in `wiki/`.

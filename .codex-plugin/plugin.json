@@ -1,0 +1,12 @@
+{
+  "name": "monorepo-starter",
+  "version": "0.1.0",
+  "description": "A generic, knowledge-worker version of the personal context-engine pattern.",
+  "author": {
+    "name": "monorepo-starter contributors"
+  },
+  "license": "MIT",
+  "agentsFile": "AGENTS.md",
+  "skillsDir": "agents/skills",
+  "mcpConfig": ".mcp.json"
+}

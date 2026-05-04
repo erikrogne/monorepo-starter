@@ -1,15 +1,48 @@
+# OS
 .DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
 *.swp
-*.swo
-*~
+
+# Per-machine secrets / state
 .env
 .env.local
-.env.*.local
-node_modules/
-__pycache__/
-*.pyc
-.venv/
-.idea/
-.vscode/
-*.log
-.cache/
+
+# Cron rendered intermediates (templates have WORKSPACE_PATH placeholder)
+agents/crons/*/.installed/
+
+# Wiki freshness marker (per-machine)
+wiki/.last-compile
+
+# Session logs are personal — directories committed (with .gitkeep) but contents are not
+memory/session-logs/augment/*
+memory/session-logs/cursor/*
+memory/session-logs/codex/*
+memory/session-logs/claude/*
+memory/session-logs/curated/*
+!memory/session-logs/*/.gitkeep
+
+# Raw inputs are personal
+raw/meetings/*
+raw/notes/*
+!raw/meetings/.gitkeep
+!raw/notes/.gitkeep
+
+# Wiki contents are user-generated
+wiki/concepts/*
+wiki/decisions/*
+wiki/people/*
+wiki/summaries/*
+!wiki/*/.gitkeep
+
+# Projects are user-owned
+projects/*
+!projects/.gitkeep
+!projects/AGENTS.md
+
+# Identity is personal
+identity/about-you.md
+identity/voice-guide.md
